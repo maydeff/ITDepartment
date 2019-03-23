@@ -1,0 +1,716 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DataAccess.ITDepartmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Name="ProjectId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProjectDescription" Type="varchar" MaxLength="500" />
+          <Property Name="ProjectDeadline" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ProjectUserRole">
+          <Key>
+            <PropertyRef Name="ProjectUserId" />
+          </Key>
+          <Property Name="ProjectUserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserRoleId" Type="int" Nullable="false" />
+          <Property Name="ProjectId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Release">
+          <Key>
+            <PropertyRef Name="ReleaseId" />
+          </Key>
+          <Property Name="ReleaseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectId" Type="int" Nullable="false" />
+          <Property Name="ReleaseDate" Type="datetime" Nullable="false" />
+          <Property Name="ReleaseName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ReleaseDescription" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="ServerName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Resource">
+          <Key>
+            <PropertyRef Name="ResourceId" />
+          </Key>
+          <Property Name="ResourceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ResourceName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ResourceRole">
+          <Key>
+            <PropertyRef Name="ResourceRoleId" />
+          </Key>
+          <Property Name="ResourceRoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ResourceId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="CanAdd" Type="bit" Nullable="false" />
+          <Property Name="CanView" Type="bit" Nullable="false" />
+          <Property Name="CanEdit" Type="bit" Nullable="false" />
+          <Property Name="CanDelete" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sprint">
+          <Key>
+            <PropertyRef Name="SprintId" />
+          </Key>
+          <Property Name="SprintId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectId" Type="int" Nullable="false" />
+          <Property Name="SprintStart" Type="datetime" Nullable="false" />
+          <Property Name="SpintEnd" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="TaskId" />
+          </Key>
+          <Property Name="TaskId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SprintId" Type="int" Nullable="false" />
+          <Property Name="TaskName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="TaskDescription" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="IsDone" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="TestId" />
+          </Key>
+          <Property Name="TestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaskId" Type="int" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="char" MaxLength="64" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserRoleId" />
+          </Key>
+          <Property Name="UserRoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__ProjectUs__Proje__4AB81AF0">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="ProjectUserRole" Type="Self.ProjectUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectId" />
+            </Principal>
+            <Dependent Role="ProjectUserRole">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProjectUs__UserR__49C3F6B7">
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="1" />
+          <End Role="ProjectUserRole" Type="Self.ProjectUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRole">
+              <PropertyRef Name="UserRoleId" />
+            </Principal>
+            <Dependent Role="ProjectUserRole">
+              <PropertyRef Name="UserRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Release__Project__5812160E">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="Release" Type="Self.Release" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectId" />
+            </Principal>
+            <Dependent Role="Release">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ResourceR__Resou__403A8C7D">
+          <End Role="Resource" Type="Self.Resource" Multiplicity="1" />
+          <End Role="ResourceRole" Type="Self.ResourceRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resource">
+              <PropertyRef Name="ResourceId" />
+            </Principal>
+            <Dependent Role="ResourceRole">
+              <PropertyRef Name="ResourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ResourceR__RoleI__412EB0B6">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="ResourceRole" Type="Self.ResourceRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="ResourceRole">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sprint__ProjectI__4D94879B">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="Sprint" Type="Self.Sprint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectId" />
+            </Principal>
+            <Dependent Role="Sprint">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Task__SprintId__5070F446">
+          <End Role="Sprint" Type="Self.Sprint" Multiplicity="1" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sprint">
+              <PropertyRef Name="SprintId" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="SprintId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Test__TaskId__534D60F1">
+          <End Role="Task" Type="Self.Task" Multiplicity="1" />
+          <End Role="Test" Type="Self.Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="TaskId" />
+            </Principal>
+            <Dependent Role="Test">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserRole__RoleId__44FF419A">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserRole__UserId__440B1D61">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DataAccessITDepartmentModelStoreContainer">
+          <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectUserRole" EntityType="Self.ProjectUserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Release" EntityType="Self.Release" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Resource" EntityType="Self.Resource" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ResourceRole" EntityType="Self.ResourceRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sprint" EntityType="Self.Sprint" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Test" EntityType="Self.Test" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ProjectUs__Proje__4AB81AF0" Association="Self.FK__ProjectUs__Proje__4AB81AF0">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="ProjectUserRole" EntitySet="ProjectUserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProjectUs__UserR__49C3F6B7" Association="Self.FK__ProjectUs__UserR__49C3F6B7">
+            <End Role="UserRole" EntitySet="UserRole" />
+            <End Role="ProjectUserRole" EntitySet="ProjectUserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Release__Project__5812160E" Association="Self.FK__Release__Project__5812160E">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Release" EntitySet="Release" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ResourceR__Resou__403A8C7D" Association="Self.FK__ResourceR__Resou__403A8C7D">
+            <End Role="Resource" EntitySet="Resource" />
+            <End Role="ResourceRole" EntitySet="ResourceRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ResourceR__RoleI__412EB0B6" Association="Self.FK__ResourceR__RoleI__412EB0B6">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="ResourceRole" EntitySet="ResourceRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sprint__ProjectI__4D94879B" Association="Self.FK__Sprint__ProjectI__4D94879B">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Sprint" EntitySet="Sprint" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Task__SprintId__5070F446" Association="Self.FK__Task__SprintId__5070F446">
+            <End Role="Sprint" EntitySet="Sprint" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Test__TaskId__534D60F1" Association="Self.FK__Test__TaskId__534D60F1">
+            <End Role="Task" EntitySet="Task" />
+            <End Role="Test" EntitySet="Test" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserRole__RoleId__44FF419A" Association="Self.FK__UserRole__RoleId__44FF419A">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserRole__UserId__440B1D61" Association="Self.FK__UserRole__UserId__440B1D61">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DataAccess.ITDepartmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Name="ProjectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProjectDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectDeadline" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ProjectUserRole" Relationship="Self.FK__ProjectUs__Proje__4AB81AF0" FromRole="Project" ToRole="ProjectUserRole" />
+          <NavigationProperty Name="Release" Relationship="Self.FK__Release__Project__5812160E" FromRole="Project" ToRole="Release" />
+          <NavigationProperty Name="Sprint" Relationship="Self.FK__Sprint__ProjectI__4D94879B" FromRole="Project" ToRole="Sprint" />
+        </EntityType>
+        <EntityType Name="ProjectUserRole">
+          <Key>
+            <PropertyRef Name="ProjectUserId" />
+          </Key>
+          <Property Name="ProjectUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserRoleId" Type="Int32" Nullable="false" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Project" Relationship="Self.FK__ProjectUs__Proje__4AB81AF0" FromRole="ProjectUserRole" ToRole="Project" />
+          <NavigationProperty Name="UserRole" Relationship="Self.FK__ProjectUs__UserR__49C3F6B7" FromRole="ProjectUserRole" ToRole="UserRole" />
+        </EntityType>
+        <EntityType Name="Release">
+          <Key>
+            <PropertyRef Name="ReleaseId" />
+          </Key>
+          <Property Name="ReleaseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <Property Name="ReleaseDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ReleaseName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ReleaseDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ServerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Project" Relationship="Self.FK__Release__Project__5812160E" FromRole="Release" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="Resource">
+          <Key>
+            <PropertyRef Name="ResourceId" />
+          </Key>
+          <Property Name="ResourceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ResourceName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ResourceRole" Relationship="Self.FK__ResourceR__Resou__403A8C7D" FromRole="Resource" ToRole="ResourceRole" />
+        </EntityType>
+        <EntityType Name="ResourceRole">
+          <Key>
+            <PropertyRef Name="ResourceRoleId" />
+          </Key>
+          <Property Name="ResourceRoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ResourceId" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="CanAdd" Type="Boolean" Nullable="false" />
+          <Property Name="CanView" Type="Boolean" Nullable="false" />
+          <Property Name="CanEdit" Type="Boolean" Nullable="false" />
+          <Property Name="CanDelete" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Resource" Relationship="Self.FK__ResourceR__Resou__403A8C7D" FromRole="ResourceRole" ToRole="Resource" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__ResourceR__RoleI__412EB0B6" FromRole="ResourceRole" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ResourceRole" Relationship="Self.FK__ResourceR__RoleI__412EB0B6" FromRole="Role" ToRole="ResourceRole" />
+          <NavigationProperty Name="UserRole" Relationship="Self.FK__UserRole__RoleId__44FF419A" FromRole="Role" ToRole="UserRole" />
+        </EntityType>
+        <EntityType Name="Sprint">
+          <Key>
+            <PropertyRef Name="SprintId" />
+          </Key>
+          <Property Name="SprintId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <Property Name="SprintStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SpintEnd" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Project" Relationship="Self.FK__Sprint__ProjectI__4D94879B" FromRole="Sprint" ToRole="Project" />
+          <NavigationProperty Name="Task" Relationship="Self.FK__Task__SprintId__5070F446" FromRole="Sprint" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="TaskId" />
+          </Key>
+          <Property Name="TaskId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SprintId" Type="Int32" Nullable="false" />
+          <Property Name="TaskName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TaskDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsDone" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Sprint" Relationship="Self.FK__Task__SprintId__5070F446" FromRole="Task" ToRole="Sprint" />
+          <NavigationProperty Name="Test" Relationship="Self.FK__Test__TaskId__534D60F1" FromRole="Task" ToRole="Test" />
+        </EntityType>
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="TestId" />
+          </Key>
+          <Property Name="TestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaskId" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Task" Relationship="Self.FK__Test__TaskId__534D60F1" FromRole="Test" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="64" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="UserRole" Relationship="Self.FK__UserRole__UserId__440B1D61" FromRole="User" ToRole="UserRole" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserRoleId" />
+          </Key>
+          <Property Name="UserRoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ProjectUserRole" Relationship="Self.FK__ProjectUs__UserR__49C3F6B7" FromRole="UserRole" ToRole="ProjectUserRole" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__UserRole__RoleId__44FF419A" FromRole="UserRole" ToRole="Role" />
+          <NavigationProperty Name="User" Relationship="Self.FK__UserRole__UserId__440B1D61" FromRole="UserRole" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__ProjectUs__Proje__4AB81AF0">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="ProjectUserRole" Type="Self.ProjectUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectId" />
+            </Principal>
+            <Dependent Role="ProjectUserRole">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Release__Project__5812160E">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="Release" Type="Self.Release" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectId" />
+            </Principal>
+            <Dependent Role="Release">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sprint__ProjectI__4D94879B">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="Sprint" Type="Self.Sprint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectId" />
+            </Principal>
+            <Dependent Role="Sprint">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProjectUs__UserR__49C3F6B7">
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="1" />
+          <End Role="ProjectUserRole" Type="Self.ProjectUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRole">
+              <PropertyRef Name="UserRoleId" />
+            </Principal>
+            <Dependent Role="ProjectUserRole">
+              <PropertyRef Name="UserRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ResourceR__Resou__403A8C7D">
+          <End Role="Resource" Type="Self.Resource" Multiplicity="1" />
+          <End Role="ResourceRole" Type="Self.ResourceRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resource">
+              <PropertyRef Name="ResourceId" />
+            </Principal>
+            <Dependent Role="ResourceRole">
+              <PropertyRef Name="ResourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ResourceR__RoleI__412EB0B6">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="ResourceRole" Type="Self.ResourceRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="ResourceRole">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserRole__RoleId__44FF419A">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Task__SprintId__5070F446">
+          <End Role="Sprint" Type="Self.Sprint" Multiplicity="1" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sprint">
+              <PropertyRef Name="SprintId" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="SprintId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Test__TaskId__534D60F1">
+          <End Role="Task" Type="Self.Task" Multiplicity="1" />
+          <End Role="Test" Type="Self.Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="TaskId" />
+            </Principal>
+            <Dependent Role="Test">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserRole__UserId__440B1D61">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ITDepartmentEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Project" EntityType="Self.Project" />
+          <EntitySet Name="ProjectUserRole" EntityType="Self.ProjectUserRole" />
+          <EntitySet Name="Release" EntityType="Self.Release" />
+          <EntitySet Name="Resource" EntityType="Self.Resource" />
+          <EntitySet Name="ResourceRole" EntityType="Self.ResourceRole" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="Sprint" EntityType="Self.Sprint" />
+          <EntitySet Name="Task" EntityType="Self.Task" />
+          <EntitySet Name="Test" EntityType="Self.Test" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" />
+          <AssociationSet Name="FK__ProjectUs__Proje__4AB81AF0" Association="Self.FK__ProjectUs__Proje__4AB81AF0">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="ProjectUserRole" EntitySet="ProjectUserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Release__Project__5812160E" Association="Self.FK__Release__Project__5812160E">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Release" EntitySet="Release" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sprint__ProjectI__4D94879B" Association="Self.FK__Sprint__ProjectI__4D94879B">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Sprint" EntitySet="Sprint" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProjectUs__UserR__49C3F6B7" Association="Self.FK__ProjectUs__UserR__49C3F6B7">
+            <End Role="UserRole" EntitySet="UserRole" />
+            <End Role="ProjectUserRole" EntitySet="ProjectUserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ResourceR__Resou__403A8C7D" Association="Self.FK__ResourceR__Resou__403A8C7D">
+            <End Role="Resource" EntitySet="Resource" />
+            <End Role="ResourceRole" EntitySet="ResourceRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ResourceR__RoleI__412EB0B6" Association="Self.FK__ResourceR__RoleI__412EB0B6">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="ResourceRole" EntitySet="ResourceRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserRole__RoleId__44FF419A" Association="Self.FK__UserRole__RoleId__44FF419A">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Task__SprintId__5070F446" Association="Self.FK__Task__SprintId__5070F446">
+            <End Role="Sprint" EntitySet="Sprint" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Test__TaskId__534D60F1" Association="Self.FK__Test__TaskId__534D60F1">
+            <End Role="Task" EntitySet="Task" />
+            <End Role="Test" EntitySet="Test" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserRole__UserId__440B1D61" Association="Self.FK__UserRole__UserId__440B1D61">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DataAccessITDepartmentModelStoreContainer" CdmEntityContainer="ITDepartmentEntities">
+          <EntitySetMapping Name="Project">
+            <EntityTypeMapping TypeName="DataAccess.ITDepartmentModel.Project">
+              <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
+                <ScalarProperty Name="ProjectDeadline" ColumnName="ProjectDeadline" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectUserRole">
+            <EntityTypeMapping TypeName="DataAccess.ITDepartmentModel.ProjectUserRole">
+              <MappingFragment StoreEntitySet="ProjectUserRole">
+                <ScalarProperty Name="ProjectUserId" ColumnName="ProjectUserId" />
+                <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Release">
+            <EntityTypeMapping TypeName="DataAccess.ITDepartmentModel.Release">
+              <MappingFragment StoreEntitySet="Release">
+                <ScalarProperty Name="ReleaseId" ColumnName="ReleaseId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
+                <ScalarProperty Name="ReleaseName" ColumnName="ReleaseName" />
+                <ScalarProperty Name="ReleaseDescription" ColumnName="ReleaseDescription" />
+                <ScalarProperty Name="ServerName" ColumnName="ServerName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Resource">
+            <EntityTypeMapping TypeName="DataAccess.ITDepartmentModel.Resource">
+              <MappingFragment StoreEntitySet="Resource">
+                <ScalarProperty Name="ResourceId" ColumnName="ResourceId" />
+                <ScalarProperty Name="ResourceName" ColumnName="ResourceName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResourceRole">
+            <EntityTypeMapping TypeName="DataAccess.ITDepartmentModel.ResourceRole">
+              <MappingFragment StoreEntitySet="ResourceRole">
+                <ScalarProperty Name="ResourceRoleId" ColumnName="ResourceRoleId" />
+                <ScalarProperty Name="ResourceId" ColumnName="ResourceId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="CanAdd" ColumnName="CanAdd" />
+                <ScalarProperty Name="CanView" ColumnName="CanView" />
+                <ScalarProperty Name="CanEdit" ColumnName="CanEdit" />
+                <ScalarProperty Name="CanDelete" ColumnName="CanDelete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="DataAccess.ITDepartmentModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sprint">
+            <EntityTypeMapping TypeName="DataAccess.ITDepartmentModel.Sprint">
+              <MappingFragment StoreEntitySet="Sprint">
+                <ScalarProperty Name="SprintId" ColumnName="SprintId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="SprintStart" ColumnName="SprintStart" />
+                <ScalarProperty Name="SpintEnd" ColumnName="SpintEnd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Task">
+            <EntityTypeMapping TypeName="DataAccess.ITDepartmentModel.Task">
+              <MappingFragment StoreEntitySet="Task">
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+                <ScalarProperty Name="SprintId" ColumnName="SprintId" />
+                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+                <ScalarProperty Name="TaskDescription" ColumnName="TaskDescription" />
+                <ScalarProperty Name="IsDone" ColumnName="IsDone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Test">
+            <EntityTypeMapping TypeName="DataAccess.ITDepartmentModel.Test">
+              <MappingFragment StoreEntitySet="Test">
+                <ScalarProperty Name="TestId" ColumnName="TestId" />
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="DataAccess.ITDepartmentModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRole">
+            <EntityTypeMapping TypeName="DataAccess.ITDepartmentModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
