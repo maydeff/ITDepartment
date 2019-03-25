@@ -1,7 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web.Mvc;
+using System.Web.SessionState;
 using System.Web.UI.WebControls;
 using ITDepartment.DataAccess;
 using ITDepartment.Models;
@@ -22,12 +26,12 @@ namespace ITDepartment.Controllers
         public ActionResult Index()
         {
             var formModel = new LoginFormModel();
-            var allRoles = context.Role.ToList();
-
-            foreach (var role in allRoles)
+            if (Session["UserName"] != null)
             {
-                formModel.Roles.Add(new SelectListItem() { Selected = false, Text = role.RoleName, Value = role.RoleId.ToString()});
+                formModel.UserName = Session["UserName"].ToString();
             }
+
+            formModel.Roles = GetRoleSelectList();
 
             return View(formModel);
         }
@@ -35,19 +39,60 @@ namespace ITDepartment.Controllers
         [HttpPost]
         public ActionResult Login(LoginFormModel model)
         {
-            //TODO: password nie wypelnia sie po isnotvalid
             if (!ModelState.IsValid)
             {
-                var allRoles = context.Role.ToList();
-
-                foreach (var role in allRoles)
-                {
-                    model.Roles.Add(new SelectListItem() { Selected = false, Text = role.RoleName, Value = role.RoleId.ToString() });
-                }
+                model.Roles = GetRoleSelectList();
                 return View("Index", model);
             }
 
-            return null;
+            //Looking for user-role in the database
+            using (var hashMethod = SHA512.Create())
+            {
+                var passwordHashed = hashMethod.ComputeHash(Encoding.GetEncoding(1250).GetBytes(model.Password));
+                
+                var user = context.User.FirstOrDefault(x => x.UserName == model.UserName);
+                if (user == null)
+                {
+                    ModelState.AddModelError("Login", Text.LoginFailedMessage);
+                    model.Roles = GetRoleSelectList();
+                    return View("Index", model);
+                }
+
+                var userPass = Encoding.GetEncoding(1250).GetBytes(user.Password);
+                if (!userPass.SequenceEqual(passwordHashed))
+                {
+                    ModelState.AddModelError("Login", Text.LoginFailedMessage);
+                    model.Roles = GetRoleSelectList();
+                    return View("Index", model);
+                }
+
+                var userRole = user.UserRole.FirstOrDefault(x => x.RoleId == model.SelectedRoleId);
+                if (userRole == null)
+                {
+                    ModelState.AddModelError("Login", Text.LoginFailedMessage);
+                    model.Roles = GetRoleSelectList();
+                    return View("Index", model);
+                }
+
+                Session["UserName"] = user.UserName;
+                Session["Role"] = userRole.Role.RoleName;
+
+                return RedirectToAction("Index", "Home");
+            }
+
+        }
+
+        private IList<SelectListItem> GetRoleSelectList()
+        {
+            var toReturn = new List<SelectListItem>();
+            var allRoles = context.Role.ToList();
+
+            foreach (var role in allRoles)
+            {
+                toReturn.Add(new SelectListItem() { Selected = false, Text = role.RoleName, Value = role.RoleId.ToString() });
+            }
+
+            return toReturn;
         }
 
     }

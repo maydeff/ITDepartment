@@ -61,6 +61,15 @@ namespace ITDepartment.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wrong username, password or role..
+        /// </summary>
+        public static string LoginFailedMessage {
+            get {
+                return ResourceManager.GetString("LoginFailedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Passsword {
