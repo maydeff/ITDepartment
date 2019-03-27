@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using ITDepartment.Resources
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -12,9 +13,12 @@
         <div class="container">
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink(Text.Projects, "Index", "Project")</li>
+                    <li>@Html.ActionLink(Text.Sprints, "Index", "Sprint")</li>
+                    <li>@Html.ActionLink(Text.Tasks, "Index", "Task")</li>
+                    <li>@Html.ActionLink(Text.Tests, "Index", "Test")</li>
+                    <li>@Html.ActionLink(Text.Releases, "Index", "Release")</li>
+
                 </ul>
             </div>
         </div>

@@ -126,6 +126,12 @@
   <data name="PasswordValidationMessage" xml:space="preserve">
     <value>Enter password!</value>
   </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projects</value>
+  </data>
+  <data name="Releases" xml:space="preserve">
+    <value>Releases</value>
+  </data>
   <data name="Role" xml:space="preserve">
     <value>Role</value>
   </data>
@@ -134,6 +140,15 @@
   </data>
   <data name="SelectRole" xml:space="preserve">
     <value>Select role...</value>
+  </data>
+  <data name="Sprints" xml:space="preserve">
+    <value>Sprints</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
+  <data name="Tests" xml:space="preserve">
+    <value>Tests</value>
   </data>
   <data name="Username" xml:space="preserve">
     <value>Username</value>
