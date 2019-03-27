@@ -13,6 +13,7 @@ namespace ITDepartment.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            ViewBag.Title = "Home Index";
             return View();
         }
     }

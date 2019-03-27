@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using System.Web.Security;
 
 namespace ITDepartment.Attributes
@@ -57,6 +58,13 @@ namespace ITDepartment.Attributes
             return false;
         }
 
+        protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
+        {
+            var routeValues = new RouteValueDictionary();
+            routeValues["controller"] = "Login";
+            routeValues["action"] = "Index";
+            filterContext.Result = new RedirectToRouteResult(routeValues);
+        }
     }
 
 }
