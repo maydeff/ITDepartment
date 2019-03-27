@@ -6,10 +6,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ITDepartment.Attributes;
 using ITDepartment.DataAccess;
 
 namespace ITDepartment.Controllers
 {
+    [Authorized]
     public class ProjectController : Controller
     {
         private ITDepartmentEntities db = new ITDepartmentEntities();
