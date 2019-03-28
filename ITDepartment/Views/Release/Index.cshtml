@@ -1,0 +1,57 @@
+﻿@model IEnumerable<ITDepartment.DataAccess.Release>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReleaseName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReleaseDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Project.ProjectName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReleaseDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReleaseName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReleaseDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Project.ProjectName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ReleaseId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ReleaseId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ReleaseId })
+        </td>
+    </tr>
+}
+
+</table>

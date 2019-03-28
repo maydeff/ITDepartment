@@ -13,10 +13,10 @@ namespace ITDepartment.DataAccess
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ITDepartmentEntities : DbContext
+    public partial class Entities : DbContext
     {
-        public ITDepartmentEntities()
-            : base("name=ITDepartmentEntities")
+        public Entities()
+            : base("name=Entities")
         {
         }
     

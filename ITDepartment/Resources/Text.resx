@@ -126,6 +126,12 @@
   <data name="PasswordValidationMessage" xml:space="preserve">
     <value>Enter password!</value>
   </data>
+  <data name="ProjectDeadline" xml:space="preserve">
+    <value>Deadline</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Name</value>
+  </data>
   <data name="Projects" xml:space="preserve">
     <value>Projects</value>
   </data>

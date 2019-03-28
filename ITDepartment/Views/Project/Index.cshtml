@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ITDepartment.DataAccess.Project>
+﻿@model IEnumerable<ITDepartment.Models.ProjectDTO>
 
 @{
     ViewBag.Title = "Index";
@@ -15,29 +15,23 @@
             @Html.DisplayNameFor(model => model.ProjectName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ProjectDescription)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.ProjectDeadline)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var project in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.ProjectName)
+            @Html.DisplayFor(modelItem => project.ProjectName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ProjectDescription)
+            @Html.DisplayFor(modelItem => project.ProjectDeadline)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ProjectDeadline)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProjectId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProjectId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProjectId })
+            @Html.ActionLink("Edit", "Edit", new { id=project.ProjectId }) |
+            @Html.ActionLink("Details", "Details", new { id=project.ProjectId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=project.ProjectId })
         </td>
     </tr>
 }

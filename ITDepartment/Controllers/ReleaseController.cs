@@ -8,122 +8,116 @@ using System.Web;
 using System.Web.Mvc;
 using ITDepartment.Attributes;
 using ITDepartment.DataAccess;
-using ITDepartment.Models;
 
 namespace ITDepartment.Controllers
 {
     [Authorized]
-    public class ProjectController : Controller
+    public class ReleaseController : Controller
     {
         private ITDepartmentEntities db = new ITDepartmentEntities();
 
-        // GET: Project
+        // GET: Release
         public ActionResult Index()
         {
-            //TODO: KURWA POPRAW KLASE TASK NA NULLABLE SPRINTID
-            var projectListDto =
-                from project in db.Project
-                select new ProjectDTO
-                {
-                    ProjectId = project.ProjectId,
-                    ProjectName = project.ProjectName,
-                    ProjectDeadline = project.ProjectDeadline
-                };
-
-            return View(projectListDto);
+            var release = db.Release.Include(r => r.Project);
+            return View(release.ToList());
         }
 
-        // GET: Project/Details/5
+        // GET: Release/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = db.Project.Find(id);
-            if (project == null)
+            Release release = db.Release.Find(id);
+            if (release == null)
             {
                 return HttpNotFound();
             }
-            return View(project);
+            return View(release);
         }
 
-        // GET: Project/Create
+        // GET: Release/Create
         public ActionResult Create()
         {
+            ViewBag.ProjectId = new SelectList(db.Project, "ProjectId", "ProjectName");
             return View();
         }
 
-        // POST: Project/Create
+        // POST: Release/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProjectId,ProjectName,ProjectDescription,ProjectDeadline")] Project project)
+        public ActionResult Create([Bind(Include = "ReleaseId,ProjectId,ReleaseDate,ReleaseName,ReleaseDescription,ServerName")] Release release)
         {
             if (ModelState.IsValid)
             {
-                db.Project.Add(project);
+                db.Release.Add(release);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(project);
+            ViewBag.ProjectId = new SelectList(db.Project, "ProjectId", "ProjectName", release.ProjectId);
+            return View(release);
         }
 
-        // GET: Project/Edit/5
+        // GET: Release/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var project = db.Project.Find(id);
-            if (project == null)
+            Release release = db.Release.Find(id);
+            if (release == null)
             {
                 return HttpNotFound();
             }
-            return View(project);
+            ViewBag.ProjectId = new SelectList(db.Project, "ProjectId", "ProjectName", release.ProjectId);
+            return View(release);
         }
 
-        // POST: Project/Edit/5
+        // POST: Release/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProjectId,ProjectName,ProjectDescription,ProjectDeadline")] ProjectController project)
+        public ActionResult Edit([Bind(Include = "ReleaseId,ProjectId,ReleaseDate,ReleaseName,ReleaseDescription,ServerName")] Release release)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(project).State = EntityState.Modified;
+                db.Entry(release).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(project);
+            ViewBag.ProjectId = new SelectList(db.Project, "ProjectId", "ProjectName", release.ProjectId);
+            return View(release);
         }
 
-        // GET: Project/Delete/5
+        // GET: Release/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var project = db.Project.Find(id);
-            if (project == null)
+            Release release = db.Release.Find(id);
+            if (release == null)
             {
                 return HttpNotFound();
             }
-            return View(project);
+            return View(release);
         }
 
-        // POST: Project/Delete/5
+        // POST: Release/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var project = db.Project.Find(id);
-            db.Project.Remove(project);
+            Release release = db.Release.Find(id);
+            db.Release.Remove(release);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -136,6 +130,5 @@ namespace ITDepartment.Controllers
             }
             base.Dispose(disposing);
         }
-
     }
 }

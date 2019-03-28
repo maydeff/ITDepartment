@@ -21,7 +21,7 @@ namespace ITDepartment.DataAccess
         }
     
         public int TaskId { get; set; }
-        public int SprintId { get; set; }
+        public Nullable<int> SprintId { get; set; }
         public string TaskName { get; set; }
         public string TaskDescription { get; set; }
         public bool IsDone { get; set; }

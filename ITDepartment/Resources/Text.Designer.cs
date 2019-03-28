@@ -88,6 +88,24 @@ namespace ITDepartment.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deadline.
+        /// </summary>
+        public static string ProjectDeadline {
+            get {
+                return ResourceManager.GetString("ProjectDeadline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string ProjectName {
+            get {
+                return ResourceManager.GetString("ProjectName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Projects.
         /// </summary>
         public static string Projects {

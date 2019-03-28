@@ -8,122 +8,116 @@ using System.Web;
 using System.Web.Mvc;
 using ITDepartment.Attributes;
 using ITDepartment.DataAccess;
-using ITDepartment.Models;
 
 namespace ITDepartment.Controllers
 {
     [Authorized]
-    public class ProjectController : Controller
+    public class TestController : Controller
     {
         private ITDepartmentEntities db = new ITDepartmentEntities();
 
-        // GET: Project
+        // GET: Test
         public ActionResult Index()
         {
-            //TODO: KURWA POPRAW KLASE TASK NA NULLABLE SPRINTID
-            var projectListDto =
-                from project in db.Project
-                select new ProjectDTO
-                {
-                    ProjectId = project.ProjectId,
-                    ProjectName = project.ProjectName,
-                    ProjectDeadline = project.ProjectDeadline
-                };
-
-            return View(projectListDto);
+            var test = db.Test.Include(t => t.Task);
+            return View(test.ToList());
         }
 
-        // GET: Project/Details/5
+        // GET: Test/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = db.Project.Find(id);
-            if (project == null)
+            Test test = db.Test.Find(id);
+            if (test == null)
             {
                 return HttpNotFound();
             }
-            return View(project);
+            return View(test);
         }
 
-        // GET: Project/Create
+        // GET: Test/Create
         public ActionResult Create()
         {
+            ViewBag.TaskId = new SelectList(db.Task, "TaskId", "TaskName");
             return View();
         }
 
-        // POST: Project/Create
+        // POST: Test/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProjectId,ProjectName,ProjectDescription,ProjectDeadline")] Project project)
+        public ActionResult Create([Bind(Include = "TestId,TaskId,Status")] Test test)
         {
             if (ModelState.IsValid)
             {
-                db.Project.Add(project);
+                db.Test.Add(test);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(project);
+            ViewBag.TaskId = new SelectList(db.Task, "TaskId", "TaskName", test.TaskId);
+            return View(test);
         }
 
-        // GET: Project/Edit/5
+        // GET: Test/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var project = db.Project.Find(id);
-            if (project == null)
+            Test test = db.Test.Find(id);
+            if (test == null)
             {
                 return HttpNotFound();
             }
-            return View(project);
+            ViewBag.TaskId = new SelectList(db.Task, "TaskId", "TaskName", test.TaskId);
+            return View(test);
         }
 
-        // POST: Project/Edit/5
+        // POST: Test/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProjectId,ProjectName,ProjectDescription,ProjectDeadline")] ProjectController project)
+        public ActionResult Edit([Bind(Include = "TestId,TaskId,Status")] Test test)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(project).State = EntityState.Modified;
+                db.Entry(test).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(project);
+            ViewBag.TaskId = new SelectList(db.Task, "TaskId", "TaskName", test.TaskId);
+            return View(test);
         }
 
-        // GET: Project/Delete/5
+        // GET: Test/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var project = db.Project.Find(id);
-            if (project == null)
+            Test test = db.Test.Find(id);
+            if (test == null)
             {
                 return HttpNotFound();
             }
-            return View(project);
+            return View(test);
         }
 
-        // POST: Project/Delete/5
+        // POST: Test/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var project = db.Project.Find(id);
-            db.Project.Remove(project);
+            Test test = db.Test.Find(id);
+            db.Test.Remove(test);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -136,6 +130,5 @@ namespace ITDepartment.Controllers
             }
             base.Dispose(disposing);
         }
-
     }
 }

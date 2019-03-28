@@ -1,0 +1,58 @@
+﻿@model ITDepartment.DataAccess.Release
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Release</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReleaseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReleaseName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReleaseName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReleaseDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReleaseDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ServerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Project.ProjectName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Project.ProjectName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ReleaseId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
