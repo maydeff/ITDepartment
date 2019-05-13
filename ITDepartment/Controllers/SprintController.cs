@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using ITDepartment.Attributes;
 using ITDepartment.DataAccess;
+using ITDepartment.Models.Sprint;
+using WebGrease.Configuration;
 
 namespace ITDepartment.Controllers
 {
@@ -19,8 +21,17 @@ namespace ITDepartment.Controllers
         // GET: Sprint
         public ActionResult Index()
         {
-            var sprint = db.Sprint.Include(s => s.Project);
-            return View(sprint.ToList());
+            var sprintList = from sprint in db.Sprint
+                select new SprintViewModel
+                {
+                    SprintId = sprint.SprintId,
+                    ProjectId = sprint.ProjectId,
+                    SprintStart = sprint.SprintStart,
+                    SpintEnd = sprint.SpintEnd,
+                    ProjectName = sprint.Project.ProjectName
+                };
+
+            return View(sprintList);
         }
 
         // GET: Sprint/Details/5
@@ -30,17 +41,30 @@ namespace ITDepartment.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            //TODO: Change all finds to firstordefault
+            //TODO: extend all details view models to contain foreign objects
             Sprint sprint = db.Sprint.Find(id);
             if (sprint == null)
             {
                 return HttpNotFound();
             }
-            return View(sprint);
+
+            var sprintDetailsViewModel = new SprintDetailsViewModel
+            {
+                SprintId = sprint.SprintId,
+                ProjectId = sprint.ProjectId,
+                SprintStart = sprint.SprintStart,
+                SpintEnd = sprint.SpintEnd,
+                ProjectName = sprint.Project.ProjectName
+            };
+
+            return View(sprintDetailsViewModel);
         }
 
         // GET: Sprint/Create
         public ActionResult Create()
         {
+            //TODO: change it to type model
             ViewBag.ProjectId = new SelectList(db.Project, "ProjectId", "ProjectName");
             return View();
         }
@@ -50,15 +74,24 @@ namespace ITDepartment.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SprintId,ProjectId,SprintStart,SpintEnd")] Sprint sprint)
+        public ActionResult Create([Bind(Include = "SprintId,ProjectId,SprintStart,SpintEnd")] SprintCreateModel sprint)
         {
             if (ModelState.IsValid)
             {
-                db.Sprint.Add(sprint);
+                var newSprint = new Sprint
+                {
+                    ProjectId = sprint.ProjectId,
+                    SprintStart = sprint.SprintStart,
+                    SpintEnd = sprint.SpintEnd
+                };
+
+
+                db.Sprint.Add(newSprint);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
+            //TODO: stronly typed view
             ViewBag.ProjectId = new SelectList(db.Project, "ProjectId", "ProjectName", sprint.ProjectId);
             return View(sprint);
         }
@@ -70,13 +103,22 @@ namespace ITDepartment.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Sprint sprint = db.Sprint.Find(id);
+            var sprint = db.Sprint.Find(id);
             if (sprint == null)
             {
                 return HttpNotFound();
             }
+
+            var sprintEditModel = new SprintEditModel
+            {
+                SprintId = sprint.SprintId,
+                ProjectId = sprint.ProjectId,
+                SprintStart = sprint.SprintStart,
+                SpintEnd = sprint.SpintEnd
+            };
+
             ViewBag.ProjectId = new SelectList(db.Project, "ProjectId", "ProjectName", sprint.ProjectId);
-            return View(sprint);
+            return View(sprintEditModel);
         }
 
         // POST: Sprint/Edit/5
@@ -84,42 +126,51 @@ namespace ITDepartment.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SprintId,ProjectId,SprintStart,SpintEnd")] Sprint sprint)
+        public ActionResult Edit([Bind(Include = "SprintId,ProjectId,SprintStart,SpintEnd")] SprintEditModel sprint)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.Entry(sprint).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return View(sprint);
             }
-            ViewBag.ProjectId = new SelectList(db.Project, "ProjectId", "ProjectName", sprint.ProjectId);
-            return View(sprint);
-        }
 
-        // GET: Sprint/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Sprint sprint = db.Sprint.Find(id);
-            if (sprint == null)
+            var sprintEntity = db.Sprint.FirstOrDefault(x => x.SprintId == sprint.SprintId);
+            if (sprintEntity == null)
             {
                 return HttpNotFound();
             }
-            return View(sprint);
+
+            sprintEntity.ProjectId = sprint.ProjectId;
+            sprintEntity.SprintStart = sprint.SprintStart;
+            sprintEntity.SpintEnd = sprint.SpintEnd;
+
+            db.Entry(sprintEntity).State = EntityState.Modified;
+            db.SaveChanges();
+
+            ViewBag.ProjectId = new SelectList(db.Project, "ProjectId", "ProjectName", sprint.ProjectId);
+            return RedirectToAction("Index");
         }
 
-        // POST: Sprint/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        // GET: Sprint/Delete/5
+        public ActionResult Delete(int id)
         {
-            Sprint sprint = db.Sprint.Find(id);
-            db.Sprint.Remove(sprint);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var sprint = db.Sprint.FirstOrDefault(x => x.SprintId == id);
+            if (sprint != null)
+            {
+                db.Sprint.Remove(sprint);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "Sprint");
+        }
+
+        public ActionResult DeleteConfirmation(int? id)
+        {
+            var sprintToDelete = db.Sprint.FirstOrDefault(x => x.SprintId == id);
+            if (sprintToDelete == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("ConfirmationBody");
         }
 
         protected override void Dispose(bool disposing)

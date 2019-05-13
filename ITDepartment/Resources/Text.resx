@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Create new</value>
+  </data>
   <data name="LoginFailedMessage" xml:space="preserve">
     <value>Wrong username, password or role.</value>
+  </data>
+  <data name="NullDateTimeString" xml:space="preserve">
+    <value>---</value>
   </data>
   <data name="Passsword" xml:space="preserve">
     <value>Password</value>
@@ -129,8 +135,17 @@
   <data name="ProjectDeadline" xml:space="preserve">
     <value>Deadline</value>
   </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="ProjectDescriptionMaxLengthValidationMessage" xml:space="preserve">
+    <value>Project description can contain maximum of 500 characters!</value>
+  </data>
   <data name="ProjectName" xml:space="preserve">
     <value>Name</value>
+  </data>
+  <data name="ProjectNameMaxLengthValidationMessage" xml:space="preserve">
+    <value>Project name can contain maximum of 50 characters!</value>
   </data>
   <data name="Projects" xml:space="preserve">
     <value>Projects</value>
@@ -147,8 +162,14 @@
   <data name="SelectRole" xml:space="preserve">
     <value>Select role...</value>
   </data>
+  <data name="SprintEnd" xml:space="preserve">
+    <value>Sprint end</value>
+  </data>
   <data name="Sprints" xml:space="preserve">
     <value>Sprints</value>
+  </data>
+  <data name="SprintStart" xml:space="preserve">
+    <value>Sprint start</value>
   </data>
   <data name="Tasks" xml:space="preserve">
     <value>Tasks</value>
@@ -161,5 +182,17 @@
   </data>
   <data name="UsernameValidationMessage" xml:space="preserve">
     <value>Enter username!</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="TaskIsDone" xml:space="preserve">
+    <value>Is done</value>
+  </data>
+  <data name="TaskName" xml:space="preserve">
+    <value>Task name</value>
   </data>
 </root>

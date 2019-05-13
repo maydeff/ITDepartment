@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ITDepartment.Attributes;
 using ITDepartment.DataAccess;
+using ITDepartment.Models.Task;
 
 namespace ITDepartment.Controllers
 {
@@ -19,8 +20,16 @@ namespace ITDepartment.Controllers
         // GET: Task
         public ActionResult Index()
         {
-            var task = db.Task.Include(t => t.Sprint);
-            return View(task.ToList());
+            var taskList = from task in db.Task
+                select new TaskViewModel
+                {
+                    TaskId = task.TaskId,
+                    SprintId = task.SprintId,
+                    IsDone = task.IsDone,
+                    TaskName = task.TaskName
+                };
+
+            return View(taskList);
         }
 
         // GET: Task/Details/5
@@ -30,18 +39,28 @@ namespace ITDepartment.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Task task = db.Task.Find(id);
+            var task = db.Task.Find(id);
             if (task == null)
             {
                 return HttpNotFound();
             }
-            return View(task);
+
+            var taskDetailsViewModel = new TaskDetailsViewModel
+            {
+                TaskId = task.TaskId,
+                SprintId = task.SprintId,
+                TaskName = task.TaskName,
+                IsDone = task.IsDone,
+                TaskDescription = task.TaskDescription
+            };
+
+            return View(taskDetailsViewModel);
         }
 
         // GET: Task/Create
         public ActionResult Create()
         {
-            ViewBag.SprintId = new SelectList(db.Sprint, "SprintId", "SprintId");
+            ViewBag.SprintId = new SelectList(db.Sprint, "SprintId", "SprintStart");
             return View();
         }
 
@@ -50,16 +69,25 @@ namespace ITDepartment.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TaskId,SprintId,TaskName,TaskDescription,IsDone")] Task task)
+        public ActionResult Create([Bind(Include = "TaskId,SprintId,TaskName,TaskDescription,IsDone")] TaskCreateModel task)
         {
             if (ModelState.IsValid)
             {
-                db.Task.Add(task);
+                var newTask = new Task
+                {
+                    TaskName = task.TaskName,
+                    SprintId = task.SprintId,
+                    TaskDescription = task.TaskDescription,
+                    IsDone = false
+
+                };
+
+                db.Task.Add(newTask);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SprintId = new SelectList(db.Sprint, "SprintId", "SprintId", task.SprintId);
+            ViewBag.SprintId = new SelectList(db.Sprint, "SprintId", "SprintEnd", task.SprintId);
             return View(task);
         }
 
@@ -75,8 +103,19 @@ namespace ITDepartment.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.SprintId = new SelectList(db.Sprint, "SprintId", "SprintId", task.SprintId);
-            return View(task);
+
+            var taskEditModel = new TaskEditModel
+            {
+                TaskId = task.TaskId,
+                TaskName = task.TaskName,
+                TaskDescription = task.TaskDescription,
+                IsDone = task.IsDone,
+                SprintId = task.SprintId
+            };
+
+
+            ViewBag.SprintId = new SelectList(db.Sprint, "SprintId", "SprintStart", task.SprintId);
+            return View(taskEditModel);
         }
 
         // POST: Task/Edit/5
@@ -84,42 +123,52 @@ namespace ITDepartment.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TaskId,SprintId,TaskName,TaskDescription,IsDone")] Task task)
+        public ActionResult Edit([Bind(Include = "TaskId,SprintId,TaskName,TaskDescription,IsDone")] TaskEditModel task)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.Entry(task).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return View(task);
             }
+
+            var taskEntity = db.Task.FirstOrDefault(x => x.TaskId == task.TaskId);
+            if (taskEntity == null)
+            {
+                return HttpNotFound();
+            }
+
+            taskEntity.SprintId = task.SprintId;
+            taskEntity.TaskName = task.TaskName;
+            taskEntity.TaskDescription = task.TaskDescription;
+            taskEntity.IsDone = task.IsDone;
+
+            db.Entry(taskEntity).State = EntityState.Modified;
+            db.SaveChanges();
+
             ViewBag.SprintId = new SelectList(db.Sprint, "SprintId", "SprintId", task.SprintId);
-            return View(task);
+            return RedirectToAction("Index");
         }
 
         // GET: Task/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            var task = db.Task.FirstOrDefault(x => x.TaskId == id);
+            if (task != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                db.Task.Remove(task);
+                db.SaveChanges();
             }
-            Task task = db.Task.Find(id);
-            if (task == null)
+
+            return RedirectToAction("Index", "Task");
+        }
+
+        public ActionResult DeleteConfirmation(int? id)
+        {
+            var taskToDelete = db.Task.FirstOrDefault(x => x.TaskId == id);
+            if (taskToDelete == null)
             {
                 return HttpNotFound();
             }
-            return View(task);
-        }
-
-        // POST: Task/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Task task = db.Task.Find(id);
-            db.Task.Remove(task);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            return PartialView("ConfirmationBody");
         }
 
         protected override void Dispose(bool disposing)

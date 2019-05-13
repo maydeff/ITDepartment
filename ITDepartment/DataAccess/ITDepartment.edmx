@@ -92,7 +92,7 @@
           </Key>
           <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Password" Type="char" MaxLength="32" Nullable="false" />
+          <Property Name="Password" Type="char" MaxLength="64" Nullable="false" />
           <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
@@ -104,7 +104,7 @@
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__ProjectUs__Proje__6FE99F9F">
+        <Association Name="FK__ProjectUs__Proje__114A936A">
           <End Role="Project" Type="Self.Project" Multiplicity="1" />
           <End Role="ProjectUserRole" Type="Self.ProjectUserRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -116,7 +116,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ProjectUs__UserR__6EF57B66">
+        <Association Name="FK__ProjectUs__UserR__10566F31">
           <End Role="UserRole" Type="Self.UserRole" Multiplicity="1" />
           <End Role="ProjectUserRole" Type="Self.ProjectUserRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -128,7 +128,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Release__Project__7B5B524B">
+        <Association Name="FK__Release__Project__1CBC4616">
           <End Role="Project" Type="Self.Project" Multiplicity="1" />
           <End Role="Release" Type="Self.Release" Multiplicity="*" />
           <ReferentialConstraint>
@@ -140,7 +140,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ResourceR__Resou__656C112C">
+        <Association Name="FK__ResourceR__Resou__06CD04F7">
           <End Role="Resource" Type="Self.Resource" Multiplicity="1" />
           <End Role="ResourceRole" Type="Self.ResourceRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -152,7 +152,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ResourceR__RoleI__66603565">
+        <Association Name="FK__ResourceR__RoleI__07C12930">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="ResourceRole" Type="Self.ResourceRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -164,7 +164,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sprint__ProjectI__72C60C4A">
+        <Association Name="FK__Sprint__ProjectI__14270015">
           <End Role="Project" Type="Self.Project" Multiplicity="1" />
           <End Role="Sprint" Type="Self.Sprint" Multiplicity="*" />
           <ReferentialConstraint>
@@ -176,7 +176,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Task__SprintId__75A278F5">
+        <Association Name="FK__Task__SprintId__17036CC0">
           <End Role="Sprint" Type="Self.Sprint" Multiplicity="0..1" />
           <End Role="Task" Type="Self.Task" Multiplicity="*" />
           <ReferentialConstraint>
@@ -188,7 +188,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Test__TaskId__787EE5A0">
+        <Association Name="FK__Test__TaskId__19DFD96B">
           <End Role="Task" Type="Self.Task" Multiplicity="1" />
           <End Role="Test" Type="Self.Test" Multiplicity="*" />
           <ReferentialConstraint>
@@ -200,7 +200,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserRole__RoleId__6A30C649">
+        <Association Name="FK__UserRole__RoleId__0B91BA14">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -212,7 +212,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserRole__UserId__693CA210">
+        <Association Name="FK__UserRole__UserId__0A9D95DB">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -236,43 +236,43 @@
           <EntitySet Name="Test" EntityType="Self.Test" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__ProjectUs__Proje__6FE99F9F" Association="Self.FK__ProjectUs__Proje__6FE99F9F">
+          <AssociationSet Name="FK__ProjectUs__Proje__114A936A" Association="Self.FK__ProjectUs__Proje__114A936A">
             <End Role="Project" EntitySet="Project" />
             <End Role="ProjectUserRole" EntitySet="ProjectUserRole" />
           </AssociationSet>
-          <AssociationSet Name="FK__ProjectUs__UserR__6EF57B66" Association="Self.FK__ProjectUs__UserR__6EF57B66">
+          <AssociationSet Name="FK__ProjectUs__UserR__10566F31" Association="Self.FK__ProjectUs__UserR__10566F31">
             <End Role="UserRole" EntitySet="UserRole" />
             <End Role="ProjectUserRole" EntitySet="ProjectUserRole" />
           </AssociationSet>
-          <AssociationSet Name="FK__Release__Project__7B5B524B" Association="Self.FK__Release__Project__7B5B524B">
+          <AssociationSet Name="FK__Release__Project__1CBC4616" Association="Self.FK__Release__Project__1CBC4616">
             <End Role="Project" EntitySet="Project" />
             <End Role="Release" EntitySet="Release" />
           </AssociationSet>
-          <AssociationSet Name="FK__ResourceR__Resou__656C112C" Association="Self.FK__ResourceR__Resou__656C112C">
+          <AssociationSet Name="FK__ResourceR__Resou__06CD04F7" Association="Self.FK__ResourceR__Resou__06CD04F7">
             <End Role="Resource" EntitySet="Resource" />
             <End Role="ResourceRole" EntitySet="ResourceRole" />
           </AssociationSet>
-          <AssociationSet Name="FK__ResourceR__RoleI__66603565" Association="Self.FK__ResourceR__RoleI__66603565">
+          <AssociationSet Name="FK__ResourceR__RoleI__07C12930" Association="Self.FK__ResourceR__RoleI__07C12930">
             <End Role="Role" EntitySet="Role" />
             <End Role="ResourceRole" EntitySet="ResourceRole" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sprint__ProjectI__72C60C4A" Association="Self.FK__Sprint__ProjectI__72C60C4A">
+          <AssociationSet Name="FK__Sprint__ProjectI__14270015" Association="Self.FK__Sprint__ProjectI__14270015">
             <End Role="Project" EntitySet="Project" />
             <End Role="Sprint" EntitySet="Sprint" />
           </AssociationSet>
-          <AssociationSet Name="FK__Task__SprintId__75A278F5" Association="Self.FK__Task__SprintId__75A278F5">
+          <AssociationSet Name="FK__Task__SprintId__17036CC0" Association="Self.FK__Task__SprintId__17036CC0">
             <End Role="Sprint" EntitySet="Sprint" />
             <End Role="Task" EntitySet="Task" />
           </AssociationSet>
-          <AssociationSet Name="FK__Test__TaskId__787EE5A0" Association="Self.FK__Test__TaskId__787EE5A0">
+          <AssociationSet Name="FK__Test__TaskId__19DFD96B" Association="Self.FK__Test__TaskId__19DFD96B">
             <End Role="Task" EntitySet="Task" />
             <End Role="Test" EntitySet="Test" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserRole__RoleId__6A30C649" Association="Self.FK__UserRole__RoleId__6A30C649">
+          <AssociationSet Name="FK__UserRole__RoleId__0B91BA14" Association="Self.FK__UserRole__RoleId__0B91BA14">
             <End Role="Role" EntitySet="Role" />
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserRole__UserId__693CA210" Association="Self.FK__UserRole__UserId__693CA210">
+          <AssociationSet Name="FK__UserRole__UserId__0A9D95DB" Association="Self.FK__UserRole__UserId__0A9D95DB">
             <End Role="User" EntitySet="User" />
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
@@ -290,9 +290,9 @@
           <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ProjectDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="ProjectDeadline" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="ProjectUserRole" Relationship="Self.FK__ProjectUs__Proje__6FE99F9F" FromRole="Project" ToRole="ProjectUserRole" />
-          <NavigationProperty Name="Release" Relationship="Self.FK__Release__Project__7B5B524B" FromRole="Project" ToRole="Release" />
-          <NavigationProperty Name="Sprint" Relationship="Self.FK__Sprint__ProjectI__72C60C4A" FromRole="Project" ToRole="Sprint" />
+          <NavigationProperty Name="ProjectUserRole" Relationship="Self.FK__ProjectUs__Proje__114A936A" FromRole="Project" ToRole="ProjectUserRole" />
+          <NavigationProperty Name="Release" Relationship="Self.FK__Release__Project__1CBC4616" FromRole="Project" ToRole="Release" />
+          <NavigationProperty Name="Sprint" Relationship="Self.FK__Sprint__ProjectI__14270015" FromRole="Project" ToRole="Sprint" />
         </EntityType>
         <EntityType Name="ProjectUserRole">
           <Key>
@@ -301,8 +301,8 @@
           <Property Name="ProjectUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserRoleId" Type="Int32" Nullable="false" />
           <Property Name="ProjectId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Project" Relationship="Self.FK__ProjectUs__Proje__6FE99F9F" FromRole="ProjectUserRole" ToRole="Project" />
-          <NavigationProperty Name="UserRole" Relationship="Self.FK__ProjectUs__UserR__6EF57B66" FromRole="ProjectUserRole" ToRole="UserRole" />
+          <NavigationProperty Name="Project" Relationship="Self.FK__ProjectUs__Proje__114A936A" FromRole="ProjectUserRole" ToRole="Project" />
+          <NavigationProperty Name="UserRole" Relationship="Self.FK__ProjectUs__UserR__10566F31" FromRole="ProjectUserRole" ToRole="UserRole" />
         </EntityType>
         <EntityType Name="Release">
           <Key>
@@ -314,7 +314,7 @@
           <Property Name="ReleaseName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ReleaseDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ServerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Project" Relationship="Self.FK__Release__Project__7B5B524B" FromRole="Release" ToRole="Project" />
+          <NavigationProperty Name="Project" Relationship="Self.FK__Release__Project__1CBC4616" FromRole="Release" ToRole="Project" />
         </EntityType>
         <EntityType Name="Resource">
           <Key>
@@ -322,7 +322,7 @@
           </Key>
           <Property Name="ResourceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ResourceName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="ResourceRole" Relationship="Self.FK__ResourceR__Resou__656C112C" FromRole="Resource" ToRole="ResourceRole" />
+          <NavigationProperty Name="ResourceRole" Relationship="Self.FK__ResourceR__Resou__06CD04F7" FromRole="Resource" ToRole="ResourceRole" />
         </EntityType>
         <EntityType Name="ResourceRole">
           <Key>
@@ -335,8 +335,8 @@
           <Property Name="CanView" Type="Boolean" Nullable="false" />
           <Property Name="CanEdit" Type="Boolean" Nullable="false" />
           <Property Name="CanDelete" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Resource" Relationship="Self.FK__ResourceR__Resou__656C112C" FromRole="ResourceRole" ToRole="Resource" />
-          <NavigationProperty Name="Role" Relationship="Self.FK__ResourceR__RoleI__66603565" FromRole="ResourceRole" ToRole="Role" />
+          <NavigationProperty Name="Resource" Relationship="Self.FK__ResourceR__Resou__06CD04F7" FromRole="ResourceRole" ToRole="Resource" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__ResourceR__RoleI__07C12930" FromRole="ResourceRole" ToRole="Role" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -344,8 +344,8 @@
           </Key>
           <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="ResourceRole" Relationship="Self.FK__ResourceR__RoleI__66603565" FromRole="Role" ToRole="ResourceRole" />
-          <NavigationProperty Name="UserRole" Relationship="Self.FK__UserRole__RoleId__6A30C649" FromRole="Role" ToRole="UserRole" />
+          <NavigationProperty Name="ResourceRole" Relationship="Self.FK__ResourceR__RoleI__07C12930" FromRole="Role" ToRole="ResourceRole" />
+          <NavigationProperty Name="UserRole" Relationship="Self.FK__UserRole__RoleId__0B91BA14" FromRole="Role" ToRole="UserRole" />
         </EntityType>
         <EntityType Name="Sprint">
           <Key>
@@ -355,8 +355,8 @@
           <Property Name="ProjectId" Type="Int32" Nullable="false" />
           <Property Name="SprintStart" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="SpintEnd" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Project" Relationship="Self.FK__Sprint__ProjectI__72C60C4A" FromRole="Sprint" ToRole="Project" />
-          <NavigationProperty Name="Task" Relationship="Self.FK__Task__SprintId__75A278F5" FromRole="Sprint" ToRole="Task" />
+          <NavigationProperty Name="Project" Relationship="Self.FK__Sprint__ProjectI__14270015" FromRole="Sprint" ToRole="Project" />
+          <NavigationProperty Name="Task" Relationship="Self.FK__Task__SprintId__17036CC0" FromRole="Sprint" ToRole="Task" />
         </EntityType>
         <EntityType Name="Task">
           <Key>
@@ -367,8 +367,8 @@
           <Property Name="TaskName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TaskDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IsDone" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Sprint" Relationship="Self.FK__Task__SprintId__75A278F5" FromRole="Task" ToRole="Sprint" />
-          <NavigationProperty Name="Test" Relationship="Self.FK__Test__TaskId__787EE5A0" FromRole="Task" ToRole="Test" />
+          <NavigationProperty Name="Sprint" Relationship="Self.FK__Task__SprintId__17036CC0" FromRole="Task" ToRole="Sprint" />
+          <NavigationProperty Name="Test" Relationship="Self.FK__Test__TaskId__19DFD96B" FromRole="Task" ToRole="Test" />
         </EntityType>
         <EntityType Name="Test">
           <Key>
@@ -377,7 +377,7 @@
           <Property Name="TestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TaskId" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Task" Relationship="Self.FK__Test__TaskId__787EE5A0" FromRole="Test" ToRole="Task" />
+          <NavigationProperty Name="Task" Relationship="Self.FK__Test__TaskId__19DFD96B" FromRole="Test" ToRole="Task" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -385,10 +385,10 @@
           </Key>
           <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="32" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="64" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="UserRole" Relationship="Self.FK__UserRole__UserId__693CA210" FromRole="User" ToRole="UserRole" />
+          <NavigationProperty Name="UserRole" Relationship="Self.FK__UserRole__UserId__0A9D95DB" FromRole="User" ToRole="UserRole" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -397,11 +397,11 @@
           <Property Name="UserRoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="RoleId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ProjectUserRole" Relationship="Self.FK__ProjectUs__UserR__6EF57B66" FromRole="UserRole" ToRole="ProjectUserRole" />
-          <NavigationProperty Name="Role" Relationship="Self.FK__UserRole__RoleId__6A30C649" FromRole="UserRole" ToRole="Role" />
-          <NavigationProperty Name="User" Relationship="Self.FK__UserRole__UserId__693CA210" FromRole="UserRole" ToRole="User" />
+          <NavigationProperty Name="ProjectUserRole" Relationship="Self.FK__ProjectUs__UserR__10566F31" FromRole="UserRole" ToRole="ProjectUserRole" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__UserRole__RoleId__0B91BA14" FromRole="UserRole" ToRole="Role" />
+          <NavigationProperty Name="User" Relationship="Self.FK__UserRole__UserId__0A9D95DB" FromRole="UserRole" ToRole="User" />
         </EntityType>
-        <Association Name="FK__ProjectUs__Proje__6FE99F9F">
+        <Association Name="FK__ProjectUs__Proje__114A936A">
           <End Role="Project" Type="Self.Project" Multiplicity="1" />
           <End Role="ProjectUserRole" Type="Self.ProjectUserRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -413,7 +413,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Release__Project__7B5B524B">
+        <Association Name="FK__Release__Project__1CBC4616">
           <End Role="Project" Type="Self.Project" Multiplicity="1" />
           <End Role="Release" Type="Self.Release" Multiplicity="*" />
           <ReferentialConstraint>
@@ -425,7 +425,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sprint__ProjectI__72C60C4A">
+        <Association Name="FK__Sprint__ProjectI__14270015">
           <End Role="Project" Type="Self.Project" Multiplicity="1" />
           <End Role="Sprint" Type="Self.Sprint" Multiplicity="*" />
           <ReferentialConstraint>
@@ -437,7 +437,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ProjectUs__UserR__6EF57B66">
+        <Association Name="FK__ProjectUs__UserR__10566F31">
           <End Role="UserRole" Type="Self.UserRole" Multiplicity="1" />
           <End Role="ProjectUserRole" Type="Self.ProjectUserRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -449,7 +449,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ResourceR__Resou__656C112C">
+        <Association Name="FK__ResourceR__Resou__06CD04F7">
           <End Role="Resource" Type="Self.Resource" Multiplicity="1" />
           <End Role="ResourceRole" Type="Self.ResourceRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -461,7 +461,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ResourceR__RoleI__66603565">
+        <Association Name="FK__ResourceR__RoleI__07C12930">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="ResourceRole" Type="Self.ResourceRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -473,7 +473,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserRole__RoleId__6A30C649">
+        <Association Name="FK__UserRole__RoleId__0B91BA14">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -485,7 +485,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Task__SprintId__75A278F5">
+        <Association Name="FK__Task__SprintId__17036CC0">
           <End Role="Sprint" Type="Self.Sprint" Multiplicity="0..1" />
           <End Role="Task" Type="Self.Task" Multiplicity="*" />
           <ReferentialConstraint>
@@ -497,7 +497,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Test__TaskId__787EE5A0">
+        <Association Name="FK__Test__TaskId__19DFD96B">
           <End Role="Task" Type="Self.Task" Multiplicity="1" />
           <End Role="Test" Type="Self.Test" Multiplicity="*" />
           <ReferentialConstraint>
@@ -509,7 +509,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserRole__UserId__693CA210">
+        <Association Name="FK__UserRole__UserId__0A9D95DB">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -521,7 +521,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ITDepartmentEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Project" EntityType="Self.Project" />
           <EntitySet Name="ProjectUserRole" EntityType="Self.ProjectUserRole" />
           <EntitySet Name="Release" EntityType="Self.Release" />
@@ -533,43 +533,43 @@
           <EntitySet Name="Test" EntityType="Self.Test" />
           <EntitySet Name="User" EntityType="Self.User" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" />
-          <AssociationSet Name="FK__ProjectUs__Proje__6FE99F9F" Association="Self.FK__ProjectUs__Proje__6FE99F9F">
+          <AssociationSet Name="FK__ProjectUs__Proje__114A936A" Association="Self.FK__ProjectUs__Proje__114A936A">
             <End Role="Project" EntitySet="Project" />
             <End Role="ProjectUserRole" EntitySet="ProjectUserRole" />
           </AssociationSet>
-          <AssociationSet Name="FK__Release__Project__7B5B524B" Association="Self.FK__Release__Project__7B5B524B">
+          <AssociationSet Name="FK__Release__Project__1CBC4616" Association="Self.FK__Release__Project__1CBC4616">
             <End Role="Project" EntitySet="Project" />
             <End Role="Release" EntitySet="Release" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sprint__ProjectI__72C60C4A" Association="Self.FK__Sprint__ProjectI__72C60C4A">
+          <AssociationSet Name="FK__Sprint__ProjectI__14270015" Association="Self.FK__Sprint__ProjectI__14270015">
             <End Role="Project" EntitySet="Project" />
             <End Role="Sprint" EntitySet="Sprint" />
           </AssociationSet>
-          <AssociationSet Name="FK__ProjectUs__UserR__6EF57B66" Association="Self.FK__ProjectUs__UserR__6EF57B66">
+          <AssociationSet Name="FK__ProjectUs__UserR__10566F31" Association="Self.FK__ProjectUs__UserR__10566F31">
             <End Role="UserRole" EntitySet="UserRole" />
             <End Role="ProjectUserRole" EntitySet="ProjectUserRole" />
           </AssociationSet>
-          <AssociationSet Name="FK__ResourceR__Resou__656C112C" Association="Self.FK__ResourceR__Resou__656C112C">
+          <AssociationSet Name="FK__ResourceR__Resou__06CD04F7" Association="Self.FK__ResourceR__Resou__06CD04F7">
             <End Role="Resource" EntitySet="Resource" />
             <End Role="ResourceRole" EntitySet="ResourceRole" />
           </AssociationSet>
-          <AssociationSet Name="FK__ResourceR__RoleI__66603565" Association="Self.FK__ResourceR__RoleI__66603565">
+          <AssociationSet Name="FK__ResourceR__RoleI__07C12930" Association="Self.FK__ResourceR__RoleI__07C12930">
             <End Role="Role" EntitySet="Role" />
             <End Role="ResourceRole" EntitySet="ResourceRole" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserRole__RoleId__6A30C649" Association="Self.FK__UserRole__RoleId__6A30C649">
+          <AssociationSet Name="FK__UserRole__RoleId__0B91BA14" Association="Self.FK__UserRole__RoleId__0B91BA14">
             <End Role="Role" EntitySet="Role" />
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
-          <AssociationSet Name="FK__Task__SprintId__75A278F5" Association="Self.FK__Task__SprintId__75A278F5">
+          <AssociationSet Name="FK__Task__SprintId__17036CC0" Association="Self.FK__Task__SprintId__17036CC0">
             <End Role="Sprint" EntitySet="Sprint" />
             <End Role="Task" EntitySet="Task" />
           </AssociationSet>
-          <AssociationSet Name="FK__Test__TaskId__787EE5A0" Association="Self.FK__Test__TaskId__787EE5A0">
+          <AssociationSet Name="FK__Test__TaskId__19DFD96B" Association="Self.FK__Test__TaskId__19DFD96B">
             <End Role="Task" EntitySet="Task" />
             <End Role="Test" EntitySet="Test" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserRole__UserId__693CA210" Association="Self.FK__UserRole__UserId__693CA210">
+          <AssociationSet Name="FK__UserRole__UserId__0A9D95DB" Association="Self.FK__UserRole__UserId__0A9D95DB">
             <End Role="User" EntitySet="User" />
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
@@ -579,7 +579,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ITDepartmentModelStoreContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="ITDepartmentModelStoreContainer" CdmEntityContainer="ITDepartmentEntities">
           <EntitySetMapping Name="Project">
             <EntityTypeMapping TypeName="ITDepartmentModel.Project">
               <MappingFragment StoreEntitySet="Project">

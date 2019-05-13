@@ -1,4 +1,4 @@
-﻿@model ITDepartment.DataAccess.Project
+﻿@model ITDepartment.Models.Project.ProjectDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -8,35 +8,37 @@
 
 <div>
     <h4>Project</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ProjectName)
-        </dt>
+    <div class="form-horizontal">
+        <hr />
+        @Html.HiddenFor(model => model.ProjectId)
 
-        <dd>
-            @Html.DisplayFor(model => model.ProjectName)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProjectName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProjectDescription)
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProjectDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.ProjectDescription, new { @class = "form-control", rows = 15, @style = "resize: vertical", disabled = "disabled" })
+                @Html.ValidationMessageFor(model => model.ProjectDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProjectDescription)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProjectDeadline, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProjectDeadline, new { htmlAttributes = new { @class = "form-control datepicker", id = "project-deadline", disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.ProjectDeadline, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProjectDeadline)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProjectDeadline)
-        </dd>
-
-    </dl>
+    </div>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ProjectId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index") 
 </p>

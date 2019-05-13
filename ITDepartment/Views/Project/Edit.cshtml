@@ -1,4 +1,4 @@
-﻿@model ITDepartment.DataAccess.Project
+﻿@model ITDepartment.Models.Project.ProjectEditModel
 
 @{
     ViewBag.Title = "Edit";
@@ -28,7 +28,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ProjectDescription, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ProjectDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.ProjectDescription, new { @class = "form-control", rows = 15, @style = "resize: vertical" })
                 @Html.ValidationMessageFor(model => model.ProjectDescription, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -36,14 +36,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ProjectDeadline, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ProjectDeadline, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ProjectDeadline, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ProjectDeadline, new { htmlAttributes = new {@class = "form-control datepicker", id = "project-deadline", autocomplete = "off"}})
+                @Html.ValidationMessageFor(model => model.ProjectDeadline, "", new {@class = "text-danger"})
             </div>
         </div>
-
+        
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </div>
     </div>
@@ -54,5 +54,13 @@
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(function() {
+            $(".datepicker").datepicker(
+                {
+                    dateFormat: "dd.mm.yy"
+                });
+        });
+    </script>
 }

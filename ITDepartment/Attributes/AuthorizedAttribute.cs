@@ -12,6 +12,8 @@ namespace ITDepartment.Attributes
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
     public class AuthorizedAttribute : AuthorizeAttribute
     {
+        private bool _authorizationMode = false;
+
         private string _userName
         {
             get
@@ -44,6 +46,10 @@ namespace ITDepartment.Attributes
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
+            if (_authorizationMode == false)
+            {
+                return true;
+            }
             if (_userName == null || _userName == string.Empty) return false;
             if (_role == null || _role == string.Empty) return false;
             if (_requiredRole.Length == 0) return true;

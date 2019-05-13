@@ -61,11 +61,29 @@ namespace ITDepartment.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create new.
+        /// </summary>
+        public static string CreateNew {
+            get {
+                return ResourceManager.GetString("CreateNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wrong username, password or role..
         /// </summary>
         public static string LoginFailedMessage {
             get {
                 return ResourceManager.GetString("LoginFailedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ---.
+        /// </summary>
+        public static string NullDateTimeString {
+            get {
+                return ResourceManager.GetString("NullDateTimeString", resourceCulture);
             }
         }
         
@@ -88,6 +106,15 @@ namespace ITDepartment.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Project.
+        /// </summary>
+        public static string Project {
+            get {
+                return ResourceManager.GetString("Project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deadline.
         /// </summary>
         public static string ProjectDeadline {
@@ -97,11 +124,38 @@ namespace ITDepartment.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string ProjectDescription {
+            get {
+                return ResourceManager.GetString("ProjectDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project description can contain maximum of 500 characters!.
+        /// </summary>
+        public static string ProjectDescriptionMaxLengthValidationMessage {
+            get {
+                return ResourceManager.GetString("ProjectDescriptionMaxLengthValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string ProjectName {
             get {
                 return ResourceManager.GetString("ProjectName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project name can contain maximum of 50 characters!.
+        /// </summary>
+        public static string ProjectNameMaxLengthValidationMessage {
+            get {
+                return ResourceManager.GetString("ProjectNameMaxLengthValidationMessage", resourceCulture);
             }
         }
         
@@ -151,11 +205,56 @@ namespace ITDepartment.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sprint end.
+        /// </summary>
+        public static string SprintEnd {
+            get {
+                return ResourceManager.GetString("SprintEnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sprints.
         /// </summary>
         public static string Sprints {
             get {
                 return ResourceManager.GetString("Sprints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sprint start.
+        /// </summary>
+        public static string SprintStart {
+            get {
+                return ResourceManager.GetString("SprintStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string TaskDescription {
+            get {
+                return ResourceManager.GetString("TaskDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is done.
+        /// </summary>
+        public static string TaskIsDone {
+            get {
+                return ResourceManager.GetString("TaskIsDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Task name.
+        /// </summary>
+        public static string TaskName {
+            get {
+                return ResourceManager.GetString("TaskName", resourceCulture);
             }
         }
         

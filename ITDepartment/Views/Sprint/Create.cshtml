@@ -1,4 +1,4 @@
-﻿@model ITDepartment.DataAccess.Sprint
+﻿@model ITDepartment.Models.Sprint.SprintCreateModel
 
 @{
     ViewBag.Title = "Create";
@@ -26,7 +26,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SprintStart, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.SprintStart, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.SprintStart, new { htmlAttributes = new { @class = "form-control datepicker", autocomplete = "off" } })
                 @Html.ValidationMessageFor(model => model.SprintStart, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -34,14 +34,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SpintEnd, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.SpintEnd, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.SpintEnd, new { htmlAttributes = new { @class = "form-control datepicker", autocomplete = "off" } })
                 @Html.ValidationMessageFor(model => model.SpintEnd, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </div>
     </div>
@@ -52,5 +52,12 @@
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+        $(function () {
+            $(".datepicker").datepicker(
+                {
+                    dateFormat: "dd.mm.yy"
+                });
+        });
+</script>
 }

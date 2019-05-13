@@ -17,7 +17,6 @@ namespace ITDepartment.Controllers
     public class LoginController : Controller
     {
         private readonly ITDepartmentEntities context;
-
         public LoginController()
         {
             context = new ITDepartmentEntities();

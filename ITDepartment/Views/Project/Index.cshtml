@@ -1,4 +1,6 @@
-﻿@model IEnumerable<ITDepartment.Models.ProjectDTO>
+﻿@using ITDepartment.Models
+@using ITDepartment.Resources
+@model IEnumerable<ITDepartment.Models.Project.ProjectViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -7,7 +9,9 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <button class="btn btn-primary" onclick="location.href = '@Url.Action("Create", "Project")'">
+        @Text.CreateNew
+    </button>
 </p>
 <table class="table">
     <tr>
@@ -17,23 +21,32 @@
         <th>
             @Html.DisplayNameFor(model => model.ProjectDeadline)
         </th>
-        <th></th>
+        <th>Actions</th>
     </tr>
 
-@foreach (var project in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => project.ProjectName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => project.ProjectDeadline)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=project.ProjectId }) |
-            @Html.ActionLink("Details", "Details", new { id=project.ProjectId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=project.ProjectId })
-        </td>
-    </tr>
-}
+    @foreach (var project in Model)
+    {
+        var myModal = "modal-container" + project.ProjectId;
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => project.ProjectName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => project.ProjectDeadline)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = project.ProjectId }) |
+                @Html.ActionLink("Details", "Details", new { id = project.ProjectId }) |
+                <a href="#" data-href="@Url.Action("DeleteConfirmation", new { id = project.ProjectId})" data-toggle="modal" data-target="#@myModal">Delete</a>
+                <div id="@myModal" class="modal fade" tabindex="-1" role="dialog" style="border: 5px solid #3A87AD;">
+                    @Html.Partial("~/Views/ConfirmationBody.cshtml", new ConfirmationModel { Id = project.ProjectId, Name = project.ProjectName, ObjectType = "Project", ControllerName = "Project"})
+                </div>
+            </td>
+        </tr>
+    }
 
 </table>
+
+
+
+

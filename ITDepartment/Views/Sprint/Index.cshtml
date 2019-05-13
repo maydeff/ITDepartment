@@ -1,4 +1,6 @@
-﻿@model IEnumerable<ITDepartment.DataAccess.Sprint>
+﻿@model IEnumerable<ITDepartment.Models.Sprint.SprintViewModel>
+@using ITDepartment.Resources
+@using ITDepartment.Models
 
 @{
     ViewBag.Title = "Index";
@@ -7,7 +9,9 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <button class="btn btn-primary" onclick="location.href = '@Url.Action("Create", "Sprint")'">
+        @Text.CreateNew
+    </button>
 </p>
 <table class="table">
     <tr>
@@ -18,28 +22,33 @@
             @Html.DisplayNameFor(model => model.SpintEnd)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Project.ProjectName)
+            @Html.DisplayNameFor(model => model.ProjectName)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.SprintStart)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SpintEnd)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Project.ProjectName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.SprintId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.SprintId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.SprintId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        var myModal = "modal-container" + item.SprintId;
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SprintStart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpintEnd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjectName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.SprintId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.SprintId }) |
+                <a href="#" data-href="@Url.Action("DeleteConfirmation", new { id = item.SprintId})" data-toggle="modal" data-target="#@myModal">Delete</a>
+                <div id="@myModal" class="modal fade" tabindex="-1" role="dialog" style="border: 5px solid #3A87AD;">
+                    @Html.Partial("~/Views/ConfirmationBody.cshtml", new ConfirmationModel { Id = item.SprintId, Name = item.SprintStart.ToShortDateString() + " - " + item.SpintEnd.ToShortDateString() , ObjectType = "Sprint", ControllerName = "Sprint" })
+                </div>
+            </td>
+        </tr>
+    }
 
 </table>
