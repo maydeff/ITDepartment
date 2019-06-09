@@ -12,12 +12,13 @@ using ITDepartment.Models.Task;
 
 namespace ITDepartment.Controllers
 {
-    [Authorized]
+    [Authorized("Task", "View")]
     public class TaskController : Controller
     {
         private ITDepartmentEntities db = new ITDepartmentEntities();
 
         // GET: Task
+        [Authorized("Task", "View")]
         public ActionResult Index()
         {
             var taskList = from task in db.Task
@@ -33,6 +34,7 @@ namespace ITDepartment.Controllers
         }
 
         // GET: Task/Details/5
+        [Authorized("Task", "View")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -58,6 +60,8 @@ namespace ITDepartment.Controllers
         }
 
         // GET: Task/Create
+        [Authorized("Task", "Add")]
+
         public ActionResult Create()
         {
             ViewBag.SprintId = new SelectList(db.Sprint, "SprintId", "SprintStart");
@@ -69,6 +73,8 @@ namespace ITDepartment.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorized("Task", "Add")]
+
         public ActionResult Create([Bind(Include = "TaskId,SprintId,TaskName,TaskDescription,IsDone")] TaskCreateModel task)
         {
             if (ModelState.IsValid)
@@ -92,6 +98,7 @@ namespace ITDepartment.Controllers
         }
 
         // GET: Task/Edit/5
+        [Authorized("Task", "Edit")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -123,6 +130,7 @@ namespace ITDepartment.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorized("Task", "Edit")]
         public ActionResult Edit([Bind(Include = "TaskId,SprintId,TaskName,TaskDescription,IsDone")] TaskEditModel task)
         {
             if (!ModelState.IsValid)
@@ -149,6 +157,7 @@ namespace ITDepartment.Controllers
         }
 
         // GET: Task/Delete/5
+        [Authorized("Task", "Delete")]
         public ActionResult Delete(int? id)
         {
             var task = db.Task.FirstOrDefault(x => x.TaskId == id);
@@ -160,7 +169,7 @@ namespace ITDepartment.Controllers
 
             return RedirectToAction("Index", "Task");
         }
-
+        [Authorized("Task", "Delete")]
         public ActionResult DeleteConfirmation(int? id)
         {
             var taskToDelete = db.Task.FirstOrDefault(x => x.TaskId == id);

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ITDepartmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ITDepartmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Project">
           <Key>
             <PropertyRef Name="ProjectId" />
@@ -77,14 +77,6 @@
           <Property Name="TaskName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="TaskDescription" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="IsDone" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Test">
-          <Key>
-            <PropertyRef Name="TestId" />
-          </Key>
-          <Property Name="TestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TaskId" Type="int" Nullable="false" />
-          <Property Name="Status" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -188,18 +180,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Test__TaskId__19DFD96B">
-          <End Role="Task" Type="Self.Task" Multiplicity="1" />
-          <End Role="Test" Type="Self.Test" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Task">
-              <PropertyRef Name="TaskId" />
-            </Principal>
-            <Dependent Role="Test">
-              <PropertyRef Name="TaskId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__UserRole__RoleId__0B91BA14">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
@@ -233,7 +213,6 @@
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sprint" EntityType="Self.Sprint" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Test" EntityType="Self.Test" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__ProjectUs__Proje__114A936A" Association="Self.FK__ProjectUs__Proje__114A936A">
@@ -264,10 +243,6 @@
             <End Role="Sprint" EntitySet="Sprint" />
             <End Role="Task" EntitySet="Task" />
           </AssociationSet>
-          <AssociationSet Name="FK__Test__TaskId__19DFD96B" Association="Self.FK__Test__TaskId__19DFD96B">
-            <End Role="Task" EntitySet="Task" />
-            <End Role="Test" EntitySet="Test" />
-          </AssociationSet>
           <AssociationSet Name="FK__UserRole__RoleId__0B91BA14" Association="Self.FK__UserRole__RoleId__0B91BA14">
             <End Role="Role" EntitySet="Role" />
             <End Role="UserRole" EntitySet="UserRole" />
@@ -277,8 +252,7 @@
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ITDepartmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -368,16 +342,6 @@
           <Property Name="TaskDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IsDone" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Sprint" Relationship="Self.FK__Task__SprintId__17036CC0" FromRole="Task" ToRole="Sprint" />
-          <NavigationProperty Name="Test" Relationship="Self.FK__Test__TaskId__19DFD96B" FromRole="Task" ToRole="Test" />
-        </EntityType>
-        <EntityType Name="Test">
-          <Key>
-            <PropertyRef Name="TestId" />
-          </Key>
-          <Property Name="TestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TaskId" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Task" Relationship="Self.FK__Test__TaskId__19DFD96B" FromRole="Test" ToRole="Task" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -497,18 +461,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Test__TaskId__19DFD96B">
-          <End Role="Task" Type="Self.Task" Multiplicity="1" />
-          <End Role="Test" Type="Self.Test" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Task">
-              <PropertyRef Name="TaskId" />
-            </Principal>
-            <Dependent Role="Test">
-              <PropertyRef Name="TaskId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__UserRole__UserId__0A9D95DB">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
@@ -530,7 +482,6 @@
           <EntitySet Name="Role" EntityType="Self.Role" />
           <EntitySet Name="Sprint" EntityType="Self.Sprint" />
           <EntitySet Name="Task" EntityType="Self.Task" />
-          <EntitySet Name="Test" EntityType="Self.Test" />
           <EntitySet Name="User" EntityType="Self.User" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" />
           <AssociationSet Name="FK__ProjectUs__Proje__114A936A" Association="Self.FK__ProjectUs__Proje__114A936A">
@@ -564,10 +515,6 @@
           <AssociationSet Name="FK__Task__SprintId__17036CC0" Association="Self.FK__Task__SprintId__17036CC0">
             <End Role="Sprint" EntitySet="Sprint" />
             <End Role="Task" EntitySet="Task" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Test__TaskId__19DFD96B" Association="Self.FK__Test__TaskId__19DFD96B">
-            <End Role="Task" EntitySet="Task" />
-            <End Role="Test" EntitySet="Test" />
           </AssociationSet>
           <AssociationSet Name="FK__UserRole__UserId__0A9D95DB" Association="Self.FK__UserRole__UserId__0A9D95DB">
             <End Role="User" EntitySet="User" />
@@ -658,15 +605,6 @@
                 <ScalarProperty Name="TaskName" ColumnName="TaskName" />
                 <ScalarProperty Name="TaskDescription" ColumnName="TaskDescription" />
                 <ScalarProperty Name="IsDone" ColumnName="IsDone" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Test">
-            <EntityTypeMapping TypeName="ITDepartmentModel.Test">
-              <MappingFragment StoreEntitySet="Test">
-                <ScalarProperty Name="TestId" ColumnName="TestId" />
-                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

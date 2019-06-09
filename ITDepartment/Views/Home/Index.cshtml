@@ -1,7 +1,9 @@
-﻿
+﻿@using ITDepartment.Utilities
+
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<p>Hello @SessionHelper.GetUsername()! Your role is @SessionHelper.GetRole().</p>
+<p>You might not been allowed to perform some kind of actions due to RBAC.</p>
 

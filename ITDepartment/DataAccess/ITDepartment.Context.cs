@@ -33,7 +33,6 @@ namespace ITDepartment.DataAccess
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Sprint> Sprint { get; set; }
         public virtual DbSet<Task> Task { get; set; }
-        public virtual DbSet<Test> Test { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserRole> UserRole { get; set; }
     }

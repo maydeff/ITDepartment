@@ -3,15 +3,7 @@ INSERT INTO Resource VALUES
 ('ProjectUserRole'),
 ('Sprint'),
 ('Task'),
-('Test'),
 ('Release')
-
---RBAC - admin role?
---('Resource'),
---('ResourceRole'),
---('Role'),
---('User'),
---('UserRole')
 
 INSERT INTO Role VALUES
 ('Software Developer'),
@@ -20,16 +12,17 @@ INSERT INTO Role VALUES
 ('Tester')
 
 INSERT INTO [User] VALUES
+('kjarzyna', HASHBYTES('SHA2_512','kjarzyna'), 'Krzysztof', 'Jarzyna'),
 ('jpsikuta', HASHBYTES('SHA2_512','jpsikuta'), 'Jaros³aw', 'Psikuta'),
 ('agolota', HASHBYTES('SHA2_512','agolota'), 'Andrzej', 'Go³ota'),
-('amalysz', HASHBYTES('SHA2_512', 'amalysz'), 'Adam', 'Ma³ysz'),
-('mzegarek', HASHBYTES('SHA2_512','mzegarek'), 'Marek', 'Zegarek'),
-('wwhite', HASHBYTES('SHA2_512','wwhite'), 'Walter', 'White'),
-('mcorleone', HASHBYTES('SHA2_512','mcorleone'), 'Michael', 'Corleone')
+('amalysz', HASHBYTES('SHA2_512', 'amalysz'), 'Adam', 'Ma³ysz')
 
 INSERT INTO UserRole VALUES
+(1, 4),
 (1, 2),
-(1, 1)
+(2, 3),
+(3, 1),
+(4, 4)
 
 --ResourceId, RoleId, CanAdd, CanView, CanEdit, CanDelete
 INSERT INTO ResourceRole VALUES
@@ -59,22 +52,10 @@ INSERT INTO ResourceRole VALUES
 (4, 4, 0, 1, 0, 0),
 
 --ResourceId, RoleId, CanAdd, CanView, CanEdit, CanDelete
---Test
-(5, 1, 0, 0, 0, 0),
-(5, 2, 0, 1, 0, 0),
-(5, 3, 0, 1, 0, 0),
-(5, 4, 1, 1, 1, 0),
-
---ResourceId, RoleId, CanAdd, CanView, CanEdit, CanDelete
 --Release
 (5, 1, 0, 1, 0, 0),
 (5, 2, 1, 1, 1, 0),
 (5, 3, 0, 1, 0, 0),
 (5, 4, 0, 0, 0, 0)
 
-
-
-
-
---todo: Resource i rbac part - moze admin role?
 

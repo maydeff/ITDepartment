@@ -11,12 +11,13 @@ using ITDepartment.DataAccess;
 
 namespace ITDepartment.Controllers
 {
-    [Authorized]
+    [Authorized("Release", "View")]
     public class ReleaseController : Controller
     {
         private ITDepartmentEntities db = new ITDepartmentEntities();
 
         // GET: Release
+        [Authorized("Release", "View")]
         public ActionResult Index()
         {
             var release = db.Release.Include(r => r.Project);
@@ -24,6 +25,7 @@ namespace ITDepartment.Controllers
         }
 
         // GET: Release/Details/5
+        [Authorized("Release", "View")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -39,6 +41,7 @@ namespace ITDepartment.Controllers
         }
 
         // GET: Release/Create
+        [Authorized("Release", "Add")]
         public ActionResult Create()
         {
             ViewBag.ProjectId = new SelectList(db.Project, "ProjectId", "ProjectName");
@@ -50,6 +53,7 @@ namespace ITDepartment.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorized("Release", "Add")]
         public ActionResult Create([Bind(Include = "ReleaseId,ProjectId,ReleaseDate,ReleaseName,ReleaseDescription,ServerName")] Release release)
         {
             if (ModelState.IsValid)
@@ -64,6 +68,7 @@ namespace ITDepartment.Controllers
         }
 
         // GET: Release/Edit/5
+        [Authorized("Release", "Edit")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -84,6 +89,7 @@ namespace ITDepartment.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorized("Release", "Edit")]
         public ActionResult Edit([Bind(Include = "ReleaseId,ProjectId,ReleaseDate,ReleaseName,ReleaseDescription,ServerName")] Release release)
         {
             if (ModelState.IsValid)
@@ -97,6 +103,7 @@ namespace ITDepartment.Controllers
         }
 
         // GET: Release/Delete/5
+        [Authorized("Release", "Delete")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -114,6 +121,7 @@ namespace ITDepartment.Controllers
         // POST: Release/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorized("Release", "Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
             Release release = db.Release.Find(id);

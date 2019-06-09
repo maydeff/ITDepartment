@@ -1,5 +1,4 @@
 DROP TABLE Release;
-DROP TABLE Test;
 DROP TABLE Task;
 DROP TABLE Sprint;
 DROP TABLE ProjectUserRole;

@@ -14,12 +14,6 @@ namespace ITDepartment.DataAccess
     
     public partial class Task
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Task()
-        {
-            this.Test = new HashSet<Test>();
-        }
-    
         public int TaskId { get; set; }
         public Nullable<int> SprintId { get; set; }
         public string TaskName { get; set; }
@@ -27,7 +21,5 @@ namespace ITDepartment.DataAccess
         public bool IsDone { get; set; }
     
         public virtual Sprint Sprint { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Test> Test { get; set; }
     }
 }

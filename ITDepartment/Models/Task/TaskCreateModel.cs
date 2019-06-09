@@ -9,7 +9,6 @@ namespace ITDepartment.Models.Task
 {
     public class TaskCreateModel
     {
-        //todo: max length? validation?
         public int TaskId { get; set; }
         public int? SprintId { get; set; }
         [Display(ResourceType = typeof(Text), Name = "TaskName")]

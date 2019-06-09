@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Mime;
 using System.Security.Cryptography;
 using System.Text;
@@ -82,6 +83,17 @@ namespace ITDepartment.Controllers
 
         }
 
+        public ActionResult Logout()
+        {
+            Session["UserName"] = null;
+            Session["Role"] = null;
+
+            return RedirectToAction("Index", "Login");
+        }
+        public ActionResult GetForbiddenPage()
+        {
+            return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+        }
         private IList<SelectListItem> GetRoleSelectList()
         {
             var toReturn = new List<SelectListItem>();

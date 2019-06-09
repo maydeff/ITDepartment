@@ -1,4 +1,5 @@
 ﻿@using ITDepartment.Resources
+@using ITDepartment.Utilities
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,14 +13,29 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink(Text.Projects, "Index", "Project")</li>
-                    <li>@Html.ActionLink(Text.Sprints, "Index", "Sprint")</li>
-                    <li>@Html.ActionLink(Text.Tasks, "Index", "Task")</li>
-                    <li>@Html.ActionLink(Text.Tests, "Index", "Test")</li>
-                    <li>@Html.ActionLink(Text.Releases, "Index", "Release")</li>
-
+                <ul class="nav navbar-nav navbar-left">
+                    @if (SessionHelper.CanView("Project"))
+                    {
+                        <li>@Html.ActionLink(Text.Projects, "Index", "Project")</li>
+                    }
+                    @if (SessionHelper.CanView("Sprint"))
+                    {
+                        <li>@Html.ActionLink(Text.Sprints, "Index", "Sprint")</li>
+                    }
+                    @if (SessionHelper.CanView("Task"))
+                    {
+                        <li>@Html.ActionLink(Text.Tasks, "Index", "Task")</li>
+                    } 
+                    @if (SessionHelper.CanView("Release"))
+                      {
+                          <li>@Html.ActionLink(Text.Releases, "Index", "Release")</li>
+                      }
                 </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink($"Logout {SessionHelper.GetUsername()} as {SessionHelper.GetRole()}", "Logout", "Login")</li>
+                </ul>
+                
+
             </div>
         </div>
     </div>

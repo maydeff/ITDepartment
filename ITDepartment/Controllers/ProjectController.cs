@@ -13,12 +13,13 @@ using ITDepartment.Models.Project;
 
 namespace ITDepartment.Controllers
 {
-    [Authorized]
+    [Authorized("Project", "View")]
     public class ProjectController : Controller
     {
         private ITDepartmentEntities db = new ITDepartmentEntities();
 
         // GET: Project
+        [Authorized("Project", "View")]
         public ActionResult Index()
         {
             var projectList =
@@ -34,6 +35,7 @@ namespace ITDepartment.Controllers
         }
 
         // GET: Project/Details/5
+        [Authorized("Project", "View")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -60,6 +62,7 @@ namespace ITDepartment.Controllers
         }
 
         // GET: Project/Create
+        [Authorized("Project", "Add")]
         public ActionResult Create()
         {
             return View();
@@ -70,6 +73,7 @@ namespace ITDepartment.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorized("Project", "Add")]
         public ActionResult Create([Bind(Include = "ProjectName,ProjectDescription,ProjectDeadline")] ProjectCreateModel project)
         {
             if (ModelState.IsValid)
@@ -91,6 +95,7 @@ namespace ITDepartment.Controllers
         }
 
         // GET: Project/Edit/5
+        [Authorized("Project", "Edit")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -118,6 +123,7 @@ namespace ITDepartment.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorized("Project", "Edit")]
         public ActionResult Edit([Bind(Include = "ProjectId,ProjectName,ProjectDescription,ProjectDeadline")] ProjectEditModel project)
         {
             if (!ModelState.IsValid)
@@ -143,6 +149,7 @@ namespace ITDepartment.Controllers
         // POST: Project/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorized("Project", "Delete")]
         public ActionResult Delete(int id)
         {
             var project = db.Project.FirstOrDefault(x => x.ProjectId == id);

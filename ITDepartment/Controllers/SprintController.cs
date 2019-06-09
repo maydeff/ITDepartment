@@ -13,12 +13,13 @@ using WebGrease.Configuration;
 
 namespace ITDepartment.Controllers
 {
-    [Authorized]
+    [Authorized("Sprint", "View")]
     public class SprintController : Controller
     {
         private ITDepartmentEntities db = new ITDepartmentEntities();
 
         // GET: Sprint
+        [Authorized("Sprint", "View")]
         public ActionResult Index()
         {
             var sprintList = from sprint in db.Sprint
@@ -35,6 +36,7 @@ namespace ITDepartment.Controllers
         }
 
         // GET: Sprint/Details/5
+        [Authorized("Sprint", "View")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -62,6 +64,7 @@ namespace ITDepartment.Controllers
         }
 
         // GET: Sprint/Create
+        [Authorized("Sprint", "Add")]
         public ActionResult Create()
         {
             //TODO: change it to type model
@@ -74,6 +77,7 @@ namespace ITDepartment.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorized("Sprint", "Add")]
         public ActionResult Create([Bind(Include = "SprintId,ProjectId,SprintStart,SpintEnd")] SprintCreateModel sprint)
         {
             if (ModelState.IsValid)
@@ -97,6 +101,7 @@ namespace ITDepartment.Controllers
         }
 
         // GET: Sprint/Edit/5
+        [Authorized("Sprint", "Edit")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -126,6 +131,7 @@ namespace ITDepartment.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorized("Sprint", "Edit")]
         public ActionResult Edit([Bind(Include = "SprintId,ProjectId,SprintStart,SpintEnd")] SprintEditModel sprint)
         {
             if (!ModelState.IsValid)
@@ -151,6 +157,8 @@ namespace ITDepartment.Controllers
         }
 
         // GET: Sprint/Delete/5
+        [Authorized("Sprint", "Delete")]
+
         public ActionResult Delete(int id)
         {
             var sprint = db.Sprint.FirstOrDefault(x => x.SprintId == id);
@@ -162,6 +170,7 @@ namespace ITDepartment.Controllers
 
             return RedirectToAction("Index", "Sprint");
         }
+        [Authorized("Sprint", "Delete")]
 
         public ActionResult DeleteConfirmation(int? id)
         {
